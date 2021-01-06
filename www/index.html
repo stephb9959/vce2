@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="TIP">
+
+	<title>VCETIP Demo</title>
+	<link rel="icon" type="image/png" href="/images/icons/favicon-16x16.png">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,700italic,600,300italic' rel='stylesheet' type='text/css'>
+	<link href="css/styles.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/handlebars.js"></script>
+	<script src="js/dropdown.js"></script>
+	<script src="js/bootstrap-toggle.js"></script>
+	<script src="js/amcharts/amcharts.js"></script>
+	<script src="js/amcharts/serial.js"></script>
+	<script src="js/amcharts/none.js"></script>
+	<script src="js/external/chartist.js"></script>
+	<script src="js/external/chartist-plugin-tooltip.js"></script>
+	<script src="js/external/typeahead.js"></script>
+	<script src="js/external/match-height.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/helpers.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/scripts.js"></script>
+
+<body>
+
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="images/TIP_vertical_rgb_white.png" height="72" /></a>
+				</div>
+				<div class="pull-left">
+					<div class="current-device">
+						<h4 class="current-device-name dynamic"></h4>
+						<p>S/N: <span class="current-device-serial dynamic"></span> <a href="#devices" id="btn-switch-device">Switch</a></p>
+					</div>
+				</div>
+				<ul class="nav navbar-nav pull-right" id="main-navigation">
+					<li><a href="#connected-devices"><span class="fa fa-home"></span><span class="text">My Home</span></a></li>
+					<li><a href="#parental-controls"><span class="fa fa-child"></span><span class="text">Parental</span></a></li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-bars"></span><span class="text">Menu</span></a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="#wifi"><span class="fa fa-fw fa-wifi"></span> WiFi</a></li>
+							<li><a href="#firewall"><span class="fa fa-fw fa-shield"></span> Security</a></li>
+							<li><a href="#" id="btn-logout"><span class="fa fa-fw fa-sign-out"></span> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="ribbon"></div>
+	</header>
+	<div id="flash-message">
+		<div class="container">
+			<a class="close">×</a>
+			<p>TIP Test</p>
+		</div>
+	</div>
+	<div class="container" id="primary"></div>
+	<footer>
+		<div class="container">
+			<p class="pull-left">TIP vCE Wi-Fi POC</p>
+			<p class="pull-right">Arilia</p>
+		</div>
+	</footer>
+
+	<script id="tpl-page-login" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+				<form class="form" id="login-form">
+					{{{ sub_template "input_text" label="Username" }}}
+					{{{ sub_template "input_text" label="Password" type="password" }}}
+					<button class="btn btn-primary" type="submit">Login</button>
+				</form>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-page-dashboard" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="welcome section">
+					<h2>Welcome, <span class="username">{{ username }}</span></h2>
+					<p class="device">
+						Device Model: <span class="device-model">{{ deviceModel }}</span><br/>
+						S/N: <span class="serial-number">{{ deviceSerial }}</span>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-6 hidden-xs">
+				<a href="#" class="ad section">
+					<p></p><br><br><br><br><br>
+					<cite> TIP Open Wi-Fi </cite>
+
+			</div></a>
+		</div>
+		<div class="row section">
+			<div class="col-sm-6">
+				<div class="total-usage section">
+					<p class="sub-title"><span class="fa fa-bar-chart"></span> Your family used <span id="total-dsoctets"></span> of <span id="bandwidth-cap"></span> this month</p>
+					<div class="usage-chart"></div>
+					<a href="#" class="btn app-btn-yellow pull-right">Upgrade Data</a>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="connection-speed section">
+					<p class="sub-title"><span class="fa fa-fighter-jet"></span> Service Plan:</p>
+					<p class="plan-info">
+						<span class="text-medium">Your speed level: Silver</span><br/>
+						<span class="text-light">30 Mbps down / 5 Mbps up</span>
+					</p>
+					<a href="#" class="btn app-btn-yellow pull-right">Upgrade Speed</a>
+					<div class="speed-bar">
+						<div class="line"></div>
+						<div class="bar bar-left"></div>
+						<div class="bar bar-mid"></div>
+						<div class="bar bar-right"></div>
+						<div class="slabel slabel-left">Fast</div>
+						<div class="slabel slabel-mid">Faster</div>
+						<div class="slabel slabel-right">Incredible</div>
+						<div class="point"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="applications section">
+				<p class="sub-title"><span class="fa fa-puzzle-piece"></span> Applications</p>
+				<ul class="app-list">
+					<li><a><span class="fa fa-lightbulb-o"></span><span class="text">Lighting</span></a></li>
+					<li><a><span class="fa fa-circle-o-notch"></span><span class="text">Thermo</span></a></li>
+					<li><a><span class="fa fa-video-camera"></span><span class="text">Security</span></a></li>
+					<li><a><span class="fa fa-bullseye"></span><span class="text">Sensor</span></a></li>
+					<li class="btn-add-app"><a><span class="fa fa-plus"></span><span class="text">Add App</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-network-people-list-item" type="text/x-handlebars-template">
+		<li data-mh="profiles">
+			<div class="profile">
+				<h5>{{ name }}</h5>
+				<div class="profile-photo">
+					<img src="{{ photo }}">
+				</div>
+			</div>
+			<ul class="devices">
+				{{#each devices}}
+				<li><span class="fa fa-fw fa-{{ type }}"></span> {{ description }}</li>
+				{{/each}}
+			</ul>
+		</li>
+	</script>
+
+	<script id="tpl-page-wifi" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-sm-6">
+				<a href="#" class="btn-back">Back</a>
+				<h2 class="title"><span class="fa fa-wifi"></span>WiFi Settings</h2>
+				<form id="wifi-form" class="form-horizontal"></form>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-wifi-form" type="text/x-handlebars-template">
+		{{{ sub_template "input_toggle" label="Enabled" name="WifiEnable" label_class="col-sm-4" control_class="col-sm-8" }}}
+		{{{ sub_template "input_toggle" label="Broadcast SSID" name="BeaconEnable" label_class="col-sm-4" control_class="col-sm-8" }}}
+		{{{ sub_template "input_select" label="Channel" name="Channel" options="1,2,3,4,5,6,7,8,9,10,11" label_class="col-sm-4" control_class="col-sm-4" }}}
+		{{{ sub_template "input_text" label="SSID" name="SSID" label_class="col-sm-4" control_class="col-sm-8" }}}
+		{{{ sub_template "input_select" label="Security Mode" name="SecurityMode" label_class="col-sm-4" control_class="col-sm-6" }}}
+		<fieldset class="passphrase"></fieldset>
+		<div class="form-group">
+			<div class="col-sm-8 col-sm-offset-4">
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-page-connected-devices" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="#" class="btn-back">Back</a>
+				<h2 class="title"><span class="fa fa-home"></span>My Home</h2>
+				<ul class="users-list network-users-list dynamic">
+				</ul>
+				<a id="btn-add-network-users"><span class="fa fa-user-plus"></span> Add User</a>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-page-parental-controls" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="#" class="btn-back">Back</a>
+				<h2 class="title"><span class="fa fa-child"></span>Parental Controls</h2>
+				<h3 class="section-header">Users</h3>
+				<ul class="users-list parental-users-list dynamic"></ul>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-page-usage" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="#" class="btn-back">Back</a>
+				<h2 class="title"><span class="fa fa-bar-chart"></span>Usage</h2>
+				<h3 class="section-header">Monthly Usage</h3>
+				<div id="quota-chart"></div>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-page-firewall" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="#" class="btn-back">Back</a>
+				<h2 class="title"><span class="fa fa-shield"></span>Security</h2>
+
+				<div class="rule-editor" id="rule-editor-firewall"></div>
+				<a id="btn-add-firewall-rule" class="btn app-btn-yellow pull-right"><span class="fa fa-plus"></span>Add Rule</a>
+				<h3>Firewall Rules</h3>
+				<table class="table table-striped firewall-rules">
+					<thead>
+						<th>Allow/Block</th>
+						<th>Port/Application</th>
+						<th>Device</th>
+						<th></th>
+					</thead>
+					<tbody class="dynamic firewall-rules">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-firewall-rule-row" type="text/x-handlebars-template">
+		<tr firewall-id="{{ id }}">
+			<td>{{ method }}</td>
+			<td>{{ port }}</td>
+			<td>{{ device }}</td>
+			<td>
+				<a class="btn-edit-firewall"><span class="fa fa-pencil"></span></a>
+				<a class="btn-remove-firewall"><span class="fa fa-times"></span></a>
+			</td>
+		</tr>
+	</script>
+
+	<script id="tpl-firewall-rule-editor" type="text/x-handlebars-template">
+		<div class="table-row">
+			<div class="col">I want to</div>
+			<div class="col" id="col-allow-block"></div>
+			<div class="col" id="col-port-app"></div>
+			<div class="col">traffic to</div>
+			<div class="col" id="col-ip"></div>
+			<div class="col"><a class="btn app-btn-yellow" id="btn-save-firewall-rule">Save Rule</a></div>
+		</div>
+	</script>
+
+	<script id="tpl-editor-dropdown" type="text/x-handlebars-template">
+		<div class="editor-dropdown">
+			<a class="toggle {{ class }}" value="{{ value }}" id="{{ id }}">{{{ label }}}</a>
+			<ul class="dropdown">
+				{{#each choices}}
+				<li><a class="{{ class }}" value="{{ value }}">{{{ label }}}</a></li>
+				{{/each}}
+			</ul>
+		</div>
+	</script>
+
+	<script id="tpl-editor-typeahead" type="text/x-handlebars-template">
+		<div class="editor-typeahead">
+			<input name="{{ name }}" value="{{ value }}" id="{{ id }}" placeholder="{{ placeholder }}">
+		</div>
+	</script>
+
+	<script id="tpl-tile-menu" type="text/x-handlebars-template">
+		<li>
+			<a href="{{ url }}" class="tile tile-{{ tile-color }}" id="tile-{{ id }}">
+				<h3>{{ title }}</h3>
+				<span class="fa {{ icon }}"></span>
+				<div class="info-text">
+					<span class="status">{{ status-text }}</span>
+					<span class="mode">{{ mode-text }}</span>
+				</div>
+			</a>
+		</li>
+	</script>
+
+	<script id="tpl-network-users-list-item" type="text/x-handlebars-template">
+		<li user-index="{{ index }}" class="row type-{{ type }}">
+			<div class="col-sm-2">
+				<div class="profile-photo">
+					<img src="{{ photo }}">
+				</div>
+				<h4 class="user-name">{{ name }}</h4>
+			</div>
+			<div class="col-sm-10">
+				<ul class="user-devices-list" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+			</div>
+		</li>
+	</script>
+
+	<script id="tpl-network-users-devices-list-item" type="text/x-handlebars-template">
+		<li id="device-{{ index }}" device-index="{{ index }}" mac="{{ mac }}" class="type-{{ toLowerCase type }}" draggable="true" ondragstart="drag(event)">
+			<div class="tile">
+				<div class="device-icon fa-{{ type }}"></div>
+				<h5>{{ description }}</h5>
+				<span class="ip">{{ ip }}</span>
+			</div>
+		</li>
+	</script>
+
+	<script id="tpl-network-users-list-add-row" type="text/x-handlebars-template">
+		<li class="row add-row">
+			<div class="col-sm-2">
+				<input type="text" name="firstName" class="form-control" placeholder="First Name">
+			</div>
+			<div class="col-sm-2">
+				<input type="text" name="lastName" class="form-control" placeholder="Last Name">
+			</div>
+			<div class="col-sm-8">
+				<ul class="user-devices-list" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<a id="btn-submit-users-list" class="btn btn-sm btn-primary">Add Profile</a></ul>
+			</div>
+		</li>
+	</script>
+
+	<script id="tpl-parental-users-list-item" type="text/x-handlebars-template">
+		<li item-index="{{ index }}">
+			<div class="clearfix">
+			<div class="col-sm-2">
+				<h3>{{ name }}</h3>
+			</div>
+			<div class="col-sm-9">
+				<ul class="user-toggles-list">
+					<li class="disable-toggle"><span parental-setting="disabled" class="enabled-{{ parental.disabled }}"></span> Disabled</li>
+					<li><span parental-setting="quotaMB" setting-type="enabled" class="enabled-{{ parental.enabled.quotaMB }}"></span> Quota</li>
+					<li><span parental-setting="blacklist" setting-type="enabled" class="enabled-{{ parental.enabled.blacklist }}"></span> Blacklist</li>
+					<li><span parental-setting="timeblock" setting-type="enabled" class="enabled-{{ parental.enabled.timeblock }}"></span> Timeblock</li>
+					<li><span parental-setting="tracked" class="enabled-{{ parental.tracked }}"></span> Tracked</li>
+				</ul>
+			</div>
+			<div class="col-sm-1">
+				<a class="btn-expand-editor"><span class="fa"></span></a>
+			</div>
+			</div>
+		</li>
+	</script>
+
+	<script id="tpl-parental-users-editor" type="text/x-handlebars-template">
+		<div class="parental-editor">
+			<div class="col-sm-3">
+				<div class="rating-controls">
+					<h4>Age Rating</h4>
+					<div class="input-group">
+						<select name="pagerating" class="form-control input-sm">
+							<option value="7">Unknown</option>
+							<option value="1">Youth</option>
+							<option value="2">Youth 7</option>
+							<option value="3">General</option>
+							<option value="4">Parental Guidance</option>
+							<option value="5">Teen 14+</option>
+							<option value="6">Mature Adult</option>
+						</select>
+					</div>
+				</div>
+				<div class="quota-controls">
+					<h4>Quota</h4>
+					<div class="input-group">
+						<input type="text" name="quota" class="form-control input-sm" value="">
+						<span class="input-group-addon" id="basic-addon2">MB</span>
+					</div>
+				</div>
+				<div class="blacklist-controls">
+					<h4>Blacklist</h4>
+					<div class="blacklists"></div>
+					<a class="btn-add-blacklist clearfix">
+						<p>Add URL</p>
+						<span class="fa fa-plus"></span>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<h4>Timeblock</h4>
+				<table class="timeblock-table">
+					<thead><tr><th></th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="col-sm-12">
+				<hr/>
+				<a class="btn btn-primary btn-save-parental-options">Save</a>
+				<a class="btn btn-cancel-parental-options">Cancel</a>
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-parental-blacklist-input" type="text/x-handlebars-template">
+		{{#each this}}
+		<div class="blacklist-group">
+			<input type="text" name="blacklist" class="form-control input-sm" value="{{ this }}">
+			<a class="btn-remove-blacklist"><span class="fa fa-times"></span></a>
+		</div>
+		{{/each}}
+	</script>
+
+	<script id="tpl-input-text" type="text/x-handlebars-template">
+		<div class="form-group">
+			<label class="control-label{{ label_class }}">{{ label }}</label>
+			<div class="{{ control_class }}">
+				<input type="{{ type }}" class="form-control" id="{{ id }}" name="{{ name }}" {{#if value }}value="{{ value }}"{{/if}} />
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-input-toggle" type="text/x-handlebars-template">
+		<div class="form-group">
+			<label class="control-label{{ label_class }}">{{ label }}</label>
+			<div class="{{ control_class }}">
+				<input type="checkbox" class="form-control" id="{{ id }}" name="{{ name }}" data-toggle="toggle" />
+			</div>
+		</div>
+	</script>
+
+	<script id="tpl-input-select" type="text/x-handlebars-template">
+		<div class="form-group">
+			<label class="control-label{{ label_class }}">{{ label }}</label>
+			<div class="{{ control_class }}">
+				<select name="{{ name }}" id="{{ id }}" class="form-control">
+				{{#each options}}
+				<option value="{{ this }}">{{ this }}</option>
+				{{/each}}
+				</select>
+			</div>
+		</div>
+	</script>
+
+</body>
+</html>

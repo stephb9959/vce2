@@ -1,0 +1,49 @@
+{
+	"items": [
+		{
+			"id": "wifi",
+			"title": "WiFi",
+			"url": "wifi.html",
+			"icon": "wifi.png",
+			"tile-color": "green",
+			"status-text": "on",
+			"mode-text": "2.4GHz"
+		},
+		{
+			"id": "parental",
+			"title": "Parental Controls",
+			"url": "parental-controls.html",
+			"icon": "parental.png",
+			"tile-color": "green",
+			"status-text": "on",
+			"mode-text": ""
+		},
+		{
+			"id": "firewall",
+			"title": "Firewall",
+			"url": "firewall.html",
+			"icon": "firewall.png",
+			"tile-color": "green",
+			"status-text": "on",
+			"mode-text": ""
+		},
+		{
+			"id": "network-map",
+			"title": "My Devices",
+			"url": "network-map.html",
+			"icon": "network-map.png",
+			"tile-color": "white",
+			"status-text": "",
+			"mode-text": ""
+		},
+		{
+			"id": "usage",
+			"title": "Usage",
+			"url": "usage.html",
+			"icon": "usage.png",
+			"tile-color": "white",
+			"status-text": "",
+			"mode-text": ""
+		}
+	]
+}

@@ -1,0 +1,2 @@
+{ "users" : [ { "name" : "Guest" , "devices" : [{ "mac" : "08:00:27:96:3b:c7" , "type" : "unknown" , "description" : "auto-discovered" } ,{ "mac" : "74:e1:b6:85:e1:c8" , "type" : "unknown" , "description" : "auto-discovered" } ,{ "mac" : "3c:e0:72:ea:02:39" , "type" : "unknown" , "description" : "auto-discovered" } ,{ "mac" : "d0:4f:7e:74:85:34" , "type" : "unknown" , "description" : "auto-discovered" }  ] } ] }
+

@@ -1,0 +1,114 @@
+{
+  "users": [
+    {
+    "name": "Alice",
+    "devices":
+      [
+       {
+        "mac": "0123456789ab",
+        "type": "LG",
+        "desciption": "Melanie Android"
+      },
+      {
+        "mac": "0123456789ac",
+        "type": "Samsung",
+        "desciption": "LivingRoom TV"
+      }
+      ]
+    ,
+    "parental": {
+      "enabled": {
+        "whitelist": true,
+        "blacklist": false,
+        "timeblock": true,
+        "quotaMB": true
+      },
+      "whitelist": [
+        "www.google.com",
+        "www.cnn.com",
+        "www.yahoo.com"
+      ],
+      "blacklist": [
+        "www.facebook.com",
+        "www.twitter.com",
+        "doubleclick.com"
+      ],
+      "timeblock": {
+        "s": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "m": [],
+        "t": [],
+        "w": [],
+        "r": [],
+        "f": [],
+        "y": [
+          30,
+          31,
+          39,
+          47
+        ]
+      },
+      "quotaMB": 1500
+    }
+  },
+  {
+    "name": "Bob",
+    "devices":
+      [
+        {
+        "mac": "0123456789ab",
+        "type": "Apple",
+        "desciption": "Bob's iPhone5"
+      },
+      {
+        "mac": "0123456789ac",
+        "type": "Apple",
+        "desciption": "MBP"
+      }
+      ]
+    ,
+    "parental": {
+      "enabled": {
+        "whitelist": true,
+        "blacklist": false,
+        "timeblock": false,
+        "quotaMB": false
+      },
+      "whitelist": [
+        "www.google.com",
+        "www.cnn.com",
+        "www.yahoo.com"
+      ],
+      "blacklist": [
+        "www.facebook.com",
+        "www.twitter.com",
+        "doubleclick.com"
+      ],
+      "timeblock": {
+        "s": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "m": [],
+        "t": [],
+        "w": [],
+        "r": [],
+        "f": [],
+        "y": [
+          30,
+          31,
+          39,
+          47
+        ]
+      },
+      "quotaMB": 500
+    }
+  }
+  ]
+}

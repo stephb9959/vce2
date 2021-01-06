@@ -1,0 +1,37 @@
+{
+	"users": [
+	{
+		"name": "Guest",
+		"parental": {
+			"disabled": true,
+			"pagerating": 3,
+			"tracked": false,
+			"enabled": {
+				"whitelist": true,
+				"blacklist": false,
+				"timeblock": false,
+				"quotaMB": true
+			},
+			"whitelist": [
+				"www.google.com",
+				"www.cnn.com",
+				"www.yahoo.com"
+			],
+			"blacklist": [
+				"www.facebook.com",
+				"www.twitter.com",
+				"doubleclick.com"
+			],
+			"timeblock": {
+				"s": [5,6,7,8,9,10],
+				"m": [],
+				"t": [],
+				"w": [],
+				"r": [],
+				"f": [],
+				"y": [30,31,39,40]
+			},
+			"quotaMB": 524288000
+		}
+	}
+]}

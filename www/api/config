@@ -1,0 +1,169 @@
+{
+  "users": [
+    {
+      "name": "Guest",
+      "devices": [
+        {
+          "mac": "5c:ff:f0:e3:8a:5b",
+          "type": "desktop",
+          "description": "Kitchen PC",
+          "ip": "192.168.1.31"
+        },
+        {
+          "mac": "74:e1:b6:85:e1:c8",
+          "type": "mobile",
+          "description": "Unknown",
+          "ip": "192.168.1.36"
+        },
+        {
+          "mac": "3c:e0:72:ea:02:39",
+          "type": "mobile",
+          "description": "iPhoneX",
+          "ip": "192.168.1.35"
+        },
+        {
+          "mac": "d0:4f:7e:74:85:34",
+          "type": "mobile",
+          "description": "iPhone6",
+          "ip": "192.168.1.31"
+        }
+      ],
+      "parental": {
+        "disabled": false,
+        "tracked": false,
+        "pagerating": 7,
+        "enabled": {
+          "whitelist": false,
+          "blacklist": false,
+          "timeblock": false,
+          "quotaMB": false
+        },
+        "whitelist": [],
+        "blacklist": [],
+        "timeblock": {},
+        "quotaMB": 0
+      },
+      "photo": "images/avatars/guest.png"
+    },
+    {
+      "name": "Bob",
+      "devices": [
+        {
+          "mac": "08:00:27:96:3b:c7",
+          "type": "mobile",
+          "description": "TIP iPhone",
+          "ip": "192.168.1.12"
+        },
+        {
+          "mac": "3a:4f:b0:6a:50:7b",
+          "type": "laptop",
+          "description": "Macbook",
+          "ip": "192.168.1.7"
+        }
+      ],
+      "parental": {
+        "disabled": false,
+        "tracked": false,
+        "pagerating": 7,
+        "enabled": {
+          "whitelist": false,
+          "blacklist": false,
+          "timeblock": false,
+          "quotaMB": false
+        },
+        "whitelist": [],
+        "blacklist": [],
+        "timeblock": {},
+        "quotaMB": 0
+      },
+      "photo": "images/avatars/bob.png"
+    },
+    {
+      "name": "Melanie",
+      "devices": [
+        {
+          "mac": "07:A0:12:78:5f:d3",
+          "type": "mobile",
+          "description": "Melanie iPhone",
+          "ip": "192.168.1.10"
+        }
+      ],
+      "parental": {
+        "disabled": false,
+        "tracked": false,
+        "pagerating": 7,
+        "enabled": {
+          "whitelist": false,
+          "blacklist": false,
+          "timeblock": false,
+          "quotaMB": false
+        },
+        "whitelist": [],
+        "blacklist": [],
+        "timeblock": {},
+        "quotaMB": 0
+      },
+      "photo": "images/avatars/melanie.png"
+    },
+    {
+      "name": "Peter",
+      "devices": [
+        {
+          "mac": "08:1b:7f:90:03:b9",
+          "type": "laptop",
+          "description": "Peter Macbook",
+          "ip": "192.168.1.22"
+        },
+        {
+          "mac": "6a:7e:bb:8f:42:5a",
+          "type": "tablet",
+          "description": "iPad",
+          "ip": "192.168.1.27"
+        }
+      ],
+      "parental": {
+        "disabled": false,
+        "tracked": false,
+        "pagerating": 7,
+        "enabled": {
+          "whitelist": false,
+          "blacklist": false,
+          "timeblock": false,
+          "quotaMB": false
+        },
+        "whitelist": [],
+        "blacklist": [],
+        "timeblock": {},
+        "quotaMB": 5000
+      },
+      "photo": "images/avatars/peter.png"
+    },
+    {
+      "name": "Anya",
+      "devices": [
+        {
+          "mac": "08:c7:f2:b3:c7:65",
+          "type": "tablet",
+          "description": "Samantha iPad",
+          "ip": "192.168.1.23"
+        }
+      ],
+      "parental": {
+        "disabled": false,
+        "tracked": false,
+        "pagerating": 7,
+        "enabled": {
+          "whitelist": false,
+          "blacklist": false,
+          "timeblock": false,
+          "quotaMB": false
+        },
+        "whitelist": [],
+        "blacklist": [],
+        "timeblock": {},
+        "quotaMB": 5000
+      },
+      "photo": "images/avatars/samantha.png"
+    }
+  ]
+}
